@@ -1,0 +1,38 @@
+name: Publish
+
+# Builds index.json from main and puts it, alone, on the `published` branch,
+# which hub.samuraiscribe.com serves. The index names this commit, and the
+# app fetches every file at that commit and checks its sha256.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate
+        run: python3 scripts/validate.py
+      - name: Build the index
+        run: python3 scripts/build_index.py "$GITHUB_SHA" > "$RUNNER_TEMP/index.json"
+      - name: Push it to the published branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir "$RUNNER_TEMP/published" && cd "$RUNNER_TEMP/published"
+          git init -q -b published
+          cp "$RUNNER_TEMP/index.json" .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git commit -qm "Index for $GITHUB_SHA"
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
