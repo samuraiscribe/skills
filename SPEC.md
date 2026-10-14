@@ -27,7 +27,7 @@ metadata:
 ---
 Write a short brief for the meeting that is about to start.
 
-1. Find earlier meetings about the same thing with search_meetings…
+1. Find earlier meetings about the same thing with search…
 ```
 
 ### Header
@@ -78,16 +78,15 @@ A skill may name these tools. Where it runs decides which are offered:
 
 | Tool | Chat | AI apps | Processing step | What it does |
 |---|:-:|:-:|:-:|---|
-| `search_meetings` | ✓ | ✓ | ✓ | Search transcripts, titles and documents; returns lines with meeting ids and times. |
+| `search` | ✓ | ✓ | ✓ | Search everything, by name or content: transcripts (lines with meeting ids and times), every meeting's notes, titles, speakers, and the user's notes elsewhere. With `meeting_id`, one meeting. |
 | `list_meetings` | ✓ | ✓ |  | Meetings by date or title, newest first. |
 | `upcoming_meetings` | ✓ | ✓ |  | Calendar meetings ahead, with attendees, linked to their meeting if one exists. |
-| `get_meeting` | ✓ | ✓ |  | One meeting: title, date, speakers, its documents and folder. |
+| `get_meeting` | ✓ | ✓ |  | One meeting: title, date, speakers, its notes and folder. |
 | `read_transcript` | ✓ | ✓ | ✓ | A meeting's transcript, a window at a time (`from_seconds`). |
 | `digest_transcript` | ✓ |  | ✓ | Reads a whole meeting for one instruction and returns the notes; the way to read a long meeting on a small model. |
-| `read_document` | ✓ | ✓ | ✓ | A meeting's document: `Summary`, `Notes`, or one the user attached. |
-| `search_notes` | ✓ | ✓ |  | Search the user's notes outside meetings. |
+| `read_document` | ✓ | ✓ | ✓ | One of a meeting's notes by name: `Summary`, `Notes`, or any other in its folder. |
 | `list_folder` | ✓ | ✓ |  | What a folder holds. |
-| `read_note` | ✓ | ✓ |  | A note's text. |
+| `read_note` | ✓ | ✓ |  | Any note's text, by its path — a meeting's included. |
 | `create_note` | ✓ | ✓ |  | Propose a new note. |
 | `edit_note` | ✓ | ✓ |  | Propose changes to a note. |
 | `move_note` | ✓ | ✓ |  | Propose moving a note. |
@@ -108,7 +107,7 @@ A skill may name these tools. Where it runs decides which are offered:
 
 A skill meant for both the app and AI apps should read meetings with `read_transcript`, not `digest_transcript`. A connection's tools (once connected) are named `<connection>__<tool>`; a skill that uses them lists the connection in `requires` and the tools in `tools`, and its runs are offered only those.
 
-Tool names do not change. If one is ever renamed, its old name keeps working.
+Tool names do not change once a release has shipped them. If one is renamed after that, its old name keeps working.
 
 ## Connections (the repository's `connections/` folder)
 

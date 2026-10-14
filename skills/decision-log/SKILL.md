@@ -6,7 +6,7 @@ metadata:
   suggested_trigger: "after_meeting"
   category: "Follow-up"
   tested_with: "local"
-  version: "1.1"
+  version: "1.2"
   spec: "1"
 ---
 Add this meeting's decisions to the decision log.
@@ -19,7 +19,7 @@ Add this meeting's decisions to the decision log.
 - **<day>** — <the decision, stated plainly>. *Why:* <the reason given, if one was>. (<meeting title>)
 ```
 
-4. Look for the log with search_notes (query: `Decision log`).
+4. Look for the log with search (query: `Decision log`).
    - If a note named `Decision log` exists, read it with read_note, then add the entries right under its first heading with edit_note: `old_text` is that first heading line, `new_text` is the heading line, a blank line, then the entries.
    - If not, create it with create_note at `Decision log.md`: a heading `# Decision log`, a blank line, then the entries.
 5. Reply in one line with how many decisions you added.

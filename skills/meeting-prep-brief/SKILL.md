@@ -6,14 +6,14 @@ metadata:
   suggested_trigger: "before_meeting 15"
   category: "Preparation"
   tested_with: "local"
-  version: "1.1"
+  version: "1.2"
   spec: "1"
 ---
 Write a short brief to prepare for a meeting.
 
 1. Find "last time" — one meeting, read once:
-   - **You were given a meeting:** that meeting *is* last time. Read its Summary with read_document, then go straight to step 2. Do not call search_meetings or list_meetings at all.
-   - **No meeting was given, and a calendar meeting about to start is described above:** make exactly one search_meetings call with the main words of its title. Take the most recent meeting it finds that is really about the same thing and read its Summary with read_document. If it finds none, say so in one line and stop.
+   - **You were given a meeting:** that meeting *is* last time. Read its Summary with read_document, then go straight to step 2. Do not call search or list_meetings at all.
+   - **No meeting was given, and a calendar meeting about to start is described above:** make exactly one search call with the main words of its title. Take the most recent meeting it finds that is really about the same thing and read its Summary with read_document. If it finds none, say so in one line and stop.
 2. Save the brief with create_note at `Prep — <meeting title>.md` (leave any `/` or `:` out of the name), with these sections, only the ones you have something for:
 
 ## Last time

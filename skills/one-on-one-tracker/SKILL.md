@@ -6,7 +6,7 @@ metadata:
   suggested_trigger: "after_meeting"
   category: "Management"
   tested_with: "local"
-  version: "1.1"
+  version: "1.2"
   spec: "1"
 ---
 Add this one-on-one to the running note for the person it was with.
@@ -25,7 +25,7 @@ Add this one-on-one to the running note for the person it was with.
 
 Topics: every subject they talked about, one line each. Commitments: only what someone agreed to do, with who and when as said. Leave out any other line with nothing in it.
 
-4. Look for the running note with search_notes (query: `1-on-1 <person>`).
+4. Look for the running note with search (query: `1-on-1 <person>`).
    - If a note named `1-on-1 — <person>` exists, read it with read_note, then add today's entry right under its first heading with edit_note: `old_text` is that first heading line, `new_text` is the heading line, a blank line, then the entry.
    - If not, create it with create_note at `1-on-1 — <person>.md`: a heading `# 1-on-1 — <person>`, a blank line, then the entry.
 5. Reply in one line saying what you added and where.
