@@ -2,10 +2,11 @@
 name: weekly-review
 description: Reviews the past seven days of meetings in one note — what each was about, the decisions made, open action items and loose ends. Use it on Monday mornings, or whenever you want to catch up on a week.
 metadata:
+  accepts: "none"
   suggested_trigger: "schedule monday 09:00"
   category: "Review"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Write a review of the past seven days of meetings.

@@ -2,10 +2,11 @@
 name: lecture-study-guide
 description: Turns a recorded lecture or talk into a study guide — key concepts, definitions, examples, and practice questions with answers. Use it after a class, a course video or a talk you want to learn from.
 metadata:
+  accepts: "meeting"
   document: "Study guide"
   category: "Learning"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Write a study guide for this lecture.

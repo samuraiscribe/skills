@@ -44,6 +44,7 @@ def main() -> int:
             "name": folder.name,
             "description": top.get("description", ""),
             "category": meta.get("category"),
+            "accepts": [a.strip() for a in meta.get("accepts", "").split(",") if a.strip()],
             "suggested_trigger": meta.get("suggested_trigger"),
             "requires": [r.strip() for r in meta.get("requires", "").split(",") if r.strip()],
             "tested_with": [t.strip() for t in meta.get("tested_with", "").split(",") if t.strip()],

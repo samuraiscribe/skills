@@ -2,10 +2,11 @@
 name: decision-log
 description: Adds the decisions made in a meeting to a running decision log, each with its date, context and the meeting it came from. Use it so you can always answer "when did we decide that, and why?".
 metadata:
+  accepts: "meeting"
   suggested_trigger: "after_meeting"
   category: "Follow-up"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Add this meeting's decisions to the decision log.

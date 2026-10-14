@@ -2,10 +2,11 @@
 name: my-action-items
 description: Collects everything you committed to in the past two weeks of meetings into one list, with the meeting each came from. Use it to see what you still owe people.
 metadata:
+  accepts: "none"
   suggested_trigger: "schedule weekdays 08:30"
   category: "Review"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 List what the user committed to in their recent meetings.

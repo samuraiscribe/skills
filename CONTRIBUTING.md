@@ -22,6 +22,7 @@ python3 scripts/validate.py
 - **"Use only what was said"**. A skill that invents a decision or a date is worse than none.
 - **Portable**: nothing about your own vault. No folder names you made, no people's names, no client names, no email addresses. Use the tools to find things instead.
 - **When it runs is not in the skill.** You may add `suggested_trigger` (see SPEC.md); the user decides.
+- **Say what it runs on** with `accepts` (required here): `meeting`, `calendar_event`, `none`, or a list such as `meeting, none` when a meeting is optional. The app's editor sets it under **Runs on**, and running the skill offers exactly these. Name only what the instructions handle: a skill that reads a meeting's Summary does not accept `none`.
 
 ### `tested_with`
 

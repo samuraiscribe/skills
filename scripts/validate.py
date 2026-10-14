@@ -23,7 +23,7 @@ NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 SCHEDULE = re.compile(
     r"^(hourly|(daily|weekdays|monday|tuesday|wednesday|thursday|friday|saturday|sunday) ([01]?\d|2[0-3]):[0-5]\d)$"
 )
-KNOWN_METADATA = {"suggested_trigger", "requires", "document", "category", "tested_with", "version", "spec"}
+KNOWN_METADATA = {"accepts", "suggested_trigger", "requires", "document", "category", "tested_with", "version", "spec"}
 # Keys from before automations: a new skill must not carry them.
 RETIRED_METADATA = {"trigger", "schedule", "minutes_before", "title_contains"}
 MAX_SKILL_MD = 20_000
@@ -109,6 +109,29 @@ def connection_ids() -> set[str]:
     return {p.name for p in CONNECTIONS.iterdir() if p.is_dir()} if CONNECTIONS.is_dir() else set()
 
 
+ACCEPTS = {"meeting", "calendar_event", "none"}
+# Named in SPEC.md for a later version; a skill may not use one yet.
+ACCEPTS_RESERVED = {"notebook", "note", "folder"}
+
+
+def check_accepts(raw: str | None) -> str | None:
+    """Why `accepts` is wrong, or None. Every library skill must declare it:
+    without it the app guesses."""
+    if raw is None:
+        return "has no accepts: say what it runs on (meeting, calendar_event, none)"
+    words = [w.strip() for w in raw.split(",") if w.strip()]
+    if not words:
+        return "accepts is empty: say what it runs on (meeting, calendar_event, none)"
+    for w in words:
+        if w in ACCEPTS_RESERVED:
+            return f"accepts: {w} is reserved for a later version of the app"
+        if w not in ACCEPTS:
+            return f"accepts: {w} is not something a skill can run on (meeting, calendar_event, none)"
+    if len(set(words)) != len(words):
+        return "accepts names something twice"
+    return None
+
+
 def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[str]:
     where = f"skills/{folder.name}"
     out: list[str] = []
@@ -140,6 +163,8 @@ def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[st
             out.append(f"{where}: `{key}` is from before automations; use suggested_trigger instead")
         elif key not in KNOWN_METADATA:
             print(f"note: {where}: metadata `{key}` is not one Samurai Scribe reads (kept as written)")
+    if why := check_accepts(meta.get("accepts")):
+        out.append(f"{where}: {why}")
     if "suggested_trigger" in meta and (why := check_suggested_trigger(meta["suggested_trigger"])):
         out.append(f"{where}: suggested_trigger: {why}")
     required = [r.strip() for r in meta.get("requires", "").split(",") if r.strip()]

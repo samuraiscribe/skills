@@ -2,6 +2,7 @@
 name: follow-up-email
 description: Drafts a follow-up email after a meeting — thanks, what was decided, who does what by when, and next steps. Use it after a call with a client, a candidate or a partner.
 metadata:
+  accepts: "meeting"
   suggested_trigger: "after_meeting"
   document: "Follow-up email"
   category: "Follow-up"

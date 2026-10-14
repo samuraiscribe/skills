@@ -2,10 +2,11 @@
 name: one-on-one-tracker
 description: After a one-on-one, adds what was discussed — topics, feedback, commitments, what to follow up next time — to a running note for that person. Use it for recurring 1:1s with your team or your manager.
 metadata:
+  accepts: "meeting"
   suggested_trigger: "after_meeting"
   category: "Management"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Add this one-on-one to the running note for the person it was with.

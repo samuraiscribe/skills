@@ -18,6 +18,7 @@ Spec version **1**. This is the contract a skill is written against: the file la
 name: meeting-prep-brief
 description: Before a calendar meeting, writes a one-page brief from past meetings with the same people or on the same topic. Use it to get ready for a meeting.
 metadata:
+  accepts: "calendar_event, meeting"
   suggested_trigger: "before_meeting 15"
   category: "Preparation"
   tested_with: "local, cloud"
@@ -43,6 +44,7 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 
 | Key | Meaning |
 |---|---|
+| `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
 | `suggested_trigger` | When the author suggests running it. **Only a hint**: it prefills an automation the user may create. Installing a skill never makes it run by itself. Values: `after_meeting`; `before_meeting` or `before_meeting <minutes>`; `schedule <when>`, where `<when>` is `hourly`, `daily HH:MM`, `weekdays HH:MM` or a weekday and a time (`monday 09:00`), in the user's local time. |
 | `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `jira`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
 | `document` | When the skill runs as a step of a meeting's processing, the name of the document its reply is saved as (`Summary`, `Follow-up email`). |
@@ -50,6 +52,10 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 | `tested_with` | `local`, `cloud`, or `local, cloud`: which kinds of model it was checked on. A skill marked `local` was qualified on the app's built-in local model. |
 | `version` | The author's own version of the skill. |
 | `spec` | The version of this format it was written for: `"1"`. |
+
+**What a run is given follows from when it runs.** An automation after a meeting hands the skill that meeting, one before a calendar meeting hands it that event, and one on a schedule hands it nothing — so `accepts` should name what each automation a skill suits will give it. The app warns, but does not refuse, an automation that hands a skill something it does not say it accepts.
+
+A meeting may not be transcribed yet: it can still have notes, documents, a calendar event, or a recording under way. A run on a meeting is told what the meeting holds, and a skill that cannot work without a transcript should check and say so ("If the meeting has no transcript yet, say so in one line and stop.").
 
 **When a skill runs is never in the skill.** It runs when the user runs it, when its description fits what they ask the assistant, or when one of the user's own **automations** says so: after meetings, before calendar meetings, or on a schedule. An automation belongs to the user because "only meetings titled *Acme*" means something in one calendar and nothing in another.
 

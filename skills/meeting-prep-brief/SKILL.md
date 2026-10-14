@@ -2,10 +2,11 @@
 name: meeting-prep-brief
 description: Before a meeting, writes a one-page brief from the last meeting on the same thing — what happened last time, open action items, open questions. Use it to get ready for a follow-up meeting.
 metadata:
+  accepts: "calendar_event, meeting"
   suggested_trigger: "before_meeting 15"
   category: "Preparation"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Write a short brief to prepare for a meeting.

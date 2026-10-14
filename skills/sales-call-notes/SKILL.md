@@ -2,11 +2,12 @@
 name: sales-call-notes
 description: Turns a sales or discovery call into structured notes — the customer's pain, who decides, budget, timeline, objections and the agreed next step. Use it after a call with a prospect or customer.
 metadata:
+  accepts: "meeting"
   suggested_trigger: "after_meeting"
   document: "Sales call notes"
   category: "Sales"
   tested_with: "local"
-  version: "1.0"
+  version: "1.1"
   spec: "1"
 ---
 Write sales call notes for this meeting.
