@@ -35,7 +35,7 @@ Only services that run their **own official remote MCP server** are listed, so t
 ```
 connections/<id>/
 ├── connection.json
-├── logo.png          256×256 PNG, the service's own logo
+├── logo.png          the service's own logo: a square PNG, 128–1024 px, unaltered
 └── logo-dark.png     optional
 ```
 

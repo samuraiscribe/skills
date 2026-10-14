@@ -23,13 +23,18 @@ NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 SCHEDULE = re.compile(
     r"^(hourly|(daily|weekdays|monday|tuesday|wednesday|thursday|friday|saturday|sunday) ([01]?\d|2[0-3]):[0-5]\d)$"
 )
-KNOWN_METADATA = {"accepts", "suggested_trigger", "requires", "document", "category", "tested_with", "version", "spec"}
+KNOWN_METADATA = {"accepts", "suggested_trigger", "requires", "tools", "document", "category", "tested_with", "version", "spec"}
 # Keys from before automations: a new skill must not carry them.
 RETIRED_METADATA = {"trigger", "schedule", "minutes_before", "title_contains"}
 MAX_SKILL_MD = 20_000
 MAX_SKILL_FOLDER = 1_000_000
 MAX_FILES = 50
 MAX_LOGO = 200_000
+# Any square size in this range: a brand's file is kept exactly as the brand
+# ships it (several brand guidelines forbid altering them), and the app
+# scales it when drawing.
+MIN_LOGO_PX = 128
+MAX_LOGO_PX = 1024
 # A word that reads like a tool name: verb_object.
 TOOL_LIKE = re.compile(
     r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember)_[a-z_]+\b"
@@ -179,9 +184,17 @@ def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[st
     for word in sorted(set(TOOL_LIKE.findall(body))):
         if word not in tools:
             out.append(f"{where}: names `{word}`, which is not a tool in SPEC.md")
-    for prefix in sorted(set(re.findall(r"\b([a-z0-9-]+)__[a-z_]+\b", body))):
+    listed = [t.strip() for t in meta.get("tools", "").split(",") if t.strip()]
+    for t in listed:
+        prefix, _, tool = t.partition("__")
+        if not tool or prefix not in required:
+            out.append(f"{where}: tools lists {t}, which is not a tool of a connection in requires")
+    for name in sorted(set(re.findall(r"\b[a-z0-9-]+__[a-z_]+\b", body))):
+        prefix = name.split("__")[0]
         if prefix not in required:
             out.append(f"{where}: uses {prefix}'s tools but does not list it in requires")
+        elif name not in listed:
+            out.append(f"{where}: names {name} but does not list it in tools; a run is offered only the tools listed")
     return out
 
 
@@ -215,10 +228,11 @@ def check_connection(folder: Path) -> list[str]:
         p = folder / logo
         if not p.exists():
             if required:
-                out.append(f"{where}: needs {logo}, 256×256 PNG")
+                out.append(f"{where}: needs {logo}, a square PNG from {MIN_LOGO_PX} to {MAX_LOGO_PX} px")
             continue
-        if png_size(p) != (256, 256):
-            out.append(f"{where}: {logo} must be a 256×256 PNG")
+        size = png_size(p)
+        if size is None or size[0] != size[1] or not MIN_LOGO_PX <= size[0] <= MAX_LOGO_PX:
+            out.append(f"{where}: {logo} must be a square PNG from {MIN_LOGO_PX} to {MAX_LOGO_PX} px")
         if p.stat().st_size > MAX_LOGO:
             out.append(f"{where}: {logo} is larger than {MAX_LOGO // 1000} KB")
     return out

@@ -47,6 +47,7 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 | `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
 | `suggested_trigger` | When the author suggests running it. **Only a hint**: it prefills an automation the user may create. Installing a skill never makes it run by itself. Values: `after_meeting`; `before_meeting` or `before_meeting <minutes>`; `schedule <when>`, where `<when>` is `hourly`, `daily HH:MM`, `weekdays HH:MM` or a weekday and a time (`monday 09:00`), in the user's local time. |
 | `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `jira`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
+| `tools` | The tools of those connections it uses, comma-separated as `<connection>__<tool>` (`linear__list_teams, linear__save_issue`). A run of the skill is offered only these of a connection it lists any of, not the service's other tools, and the app shows them before you install. Every connection tool the instructions name must be listed here. |
 | `document` | When the skill runs as a step of a meeting's processing, the name of the document its reply is saved as (`Summary`, `Follow-up email`). |
 | `category` | A short label for browsing: `Preparation`, `Follow-up`, `Review`, `Sales`, `Learning`… |
 | `tested_with` | `local`, `cloud`, or `local, cloud`: which kinds of model it was checked on. A skill marked `local` was qualified on the app's built-in local model. |
@@ -104,7 +105,7 @@ A skill may name these tools. Where it runs decides which are offered:
 | `write_document` |  |  | ✓ | Write a document into the meeting being processed. |
 | `set_title` |  |  | ✓ | Name the meeting being processed. |
 
-A skill meant for both the app and AI apps should read meetings with `read_transcript`, not `digest_transcript`. A connection's tools (once connected) are offered too, named `<connection>__<tool>`; a skill that uses them must list the connection in `requires`.
+A skill meant for both the app and AI apps should read meetings with `read_transcript`, not `digest_transcript`. A connection's tools (once connected) are named `<connection>__<tool>`; a skill that uses them lists the connection in `requires` and the tools in `tools`, and its runs are offered only those.
 
 Tool names do not change. If one is ever renamed, its old name keeps working.
 
@@ -115,7 +116,7 @@ A connection is an address, not code: the service runs its own MCP server, and t
 ```
 connections/<id>/
 ├── connection.json
-├── logo.png          256×256 PNG
+├── logo.png          a square PNG, 128–1024 px, as the brand ships it
 └── logo-dark.png     optional, for dark mode
 ```
 
