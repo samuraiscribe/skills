@@ -39,7 +39,15 @@ connections/<id>/
 └── logo-dark.png     optional
 ```
 
-In the pull request, link the service's documentation for its MCP server. Use the logo as the service's brand guidelines allow; it is there only to name the service.
+`connection.json` needs a one-line `description` of what the service is for beside meetings and a `category` (see SPEC.md). In the pull request, link the service's documentation for its MCP server. Use the logo as the service's brand guidelines allow; it is there only to name the service.
+
+The app signs in with no account of its own at the service, so the service's sign-in must let apps register themselves (OAuth dynamic client registration). Check it before opening the pull request; the pull request runs the same check:
+
+```
+python3 scripts/check_connections.py <id>
+```
+
+Every connection should have at least one skill that uses it.
 
 ## Review
 

@@ -1,0 +1,8 @@
+{
+  "id": "attio",
+  "name": "Attio",
+  "url": "https://mcp.attio.com/mcp",
+  "auth": "oauth",
+  "description": "Log call notes and follow-up tasks on the right Attio records.",
+  "category": "crm"
+}

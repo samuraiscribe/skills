@@ -1,0 +1,8 @@
+{
+  "id": "clickup",
+  "name": "ClickUp",
+  "url": "https://mcp.clickup.com/mcp",
+  "auth": "oauth",
+  "description": "Turn a meeting's action items into ClickUp tasks.",
+  "category": "tasks"
+}

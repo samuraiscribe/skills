@@ -1,0 +1,8 @@
+{
+  "id": "notion",
+  "name": "Notion",
+  "url": "https://mcp.notion.com/mcp",
+  "auth": "oauth",
+  "description": "Keep meeting notes, decisions and summaries in your Notion workspace.",
+  "category": "docs"
+}

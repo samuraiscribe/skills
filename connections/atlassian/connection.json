@@ -1,0 +1,8 @@
+{
+  "id": "atlassian",
+  "name": "Jira & Confluence",
+  "url": "https://mcp.atlassian.com/v2/mcp",
+  "auth": "oauth",
+  "description": "File action items as Jira issues and keep meeting notes in Confluence.",
+  "category": "tasks"
+}

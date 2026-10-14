@@ -1,0 +1,8 @@
+{
+  "id": "monday",
+  "name": "monday.com",
+  "url": "https://mcp.monday.com/mcp",
+  "auth": "oauth",
+  "description": "Add a meeting's action items as items on a monday.com board.",
+  "category": "tasks"
+}

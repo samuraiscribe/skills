@@ -2,5 +2,7 @@
   "id": "linear",
   "name": "Linear",
   "url": "https://mcp.linear.app/mcp",
-  "auth": "oauth"
+  "auth": "oauth",
+  "description": "Turn a meeting's action items into Linear issues.",
+  "category": "tasks"
 }

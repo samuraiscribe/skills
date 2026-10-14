@@ -35,10 +35,17 @@ MAX_LOGO = 200_000
 # scales it when drawing.
 MIN_LOGO_PX = 128
 MAX_LOGO_PX = 1024
+# What a connection is for, as the app groups the Connections tab; the app
+# shows a category it does not know under "Other".
+CATEGORIES = ("tasks", "docs", "crm", "scheduling", "chat", "files")
+MAX_DESCRIPTION = 120
 # A word that reads like a tool name: verb_object.
 TOOL_LIKE = re.compile(
-    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember)_[a-z_]+\b"
+    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember|draft)_[a-z_]+\b"
 )
+
+
+CONNECTION_TOOL = re.compile(r"(?<![\w-])[a-z0-9-]+__[A-Za-z0-9_-]+")
 
 
 def tools_in_spec() -> set[str]:
@@ -181,7 +188,10 @@ def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[st
         out.append(f"{where}: tested_with is local, cloud, or both")
     if meta.get("spec", "1") != "1":
         out.append(f'{where}: spec "{meta["spec"]}" is not one this repository knows (1)')
-    for word in sorted(set(TOOL_LIKE.findall(body))):
+    # A connection's tool (`calendly__users-get_current_user`) is checked
+    # below, against `tools`; its pieces are not the app's tools.
+    own_words = CONNECTION_TOOL.sub(" ", body)
+    for word in sorted(set(TOOL_LIKE.findall(own_words))):
         if word not in tools:
             out.append(f"{where}: names `{word}`, which is not a tool in SPEC.md")
     listed = [t.strip() for t in meta.get("tools", "").split(",") if t.strip()]
@@ -189,7 +199,10 @@ def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[st
         prefix, _, tool = t.partition("__")
         if not tool or prefix not in required:
             out.append(f"{where}: tools lists {t}, which is not a tool of a connection in requires")
-    for name in sorted(set(re.findall(r"\b[a-z0-9-]+__[a-z_]+\b", body))):
+    # Services name tools in every style — add-tasks, createJiraIssue,
+    # save_issue — so the tool part takes letters, digits, _ and -; a
+    # trailing hyphen is punctuation, not the name.
+    for name in sorted({m.rstrip("-") for m in CONNECTION_TOOL.findall(body)}):
         prefix = name.split("__")[0]
         if prefix not in required:
             out.append(f"{where}: uses {prefix}'s tools but does not list it in requires")
@@ -208,7 +221,7 @@ def check_connection(folder: Path) -> list[str]:
         c = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as e:
         return out + [f"{where}: connection.json cannot be read ({e})"]
-    allowed = {"id", "name", "url", "auth", "client_id", "suggested"}
+    allowed = {"id", "name", "url", "auth", "client_id", "description", "category", "suggested"}
     for key in set(c) - allowed:
         out.append(f"{where}: unknown key `{key}`")
     if c.get("id") != folder.name:
@@ -221,6 +234,13 @@ def check_connection(folder: Path) -> list[str]:
         out.append(f"{where}: auth is oauth or api_key")
     if "client_id" in c and not isinstance(c["client_id"], str):
         out.append(f"{where}: client_id is a string")
+    description = c.get("description")
+    if not isinstance(description, str) or not description.strip():
+        out.append(f"{where}: needs a description, one line on what it is for")
+    elif len(description) > MAX_DESCRIPTION:
+        out.append(f"{where}: description is longer than {MAX_DESCRIPTION} characters")
+    if c.get("category") not in CATEGORIES:
+        out.append(f"{where}: category is one of {', '.join(CATEGORIES)}")
     suggested = c.get("suggested", {})
     if not isinstance(suggested, dict) or any(v not in ("allow", "ask") for v in suggested.values()):
         out.append(f"{where}: suggested maps tool names to allow or ask — never anything that runs unattended")

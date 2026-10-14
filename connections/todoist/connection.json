@@ -1,0 +1,8 @@
+{
+  "id": "todoist",
+  "name": "Todoist",
+  "url": "https://ai.todoist.net/mcp",
+  "auth": "oauth",
+  "description": "Send a meeting's action items to your Todoist inbox or a project.",
+  "category": "tasks"
+}

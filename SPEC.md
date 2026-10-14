@@ -46,7 +46,7 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 |---|---|
 | `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
 | `suggested_trigger` | When the author suggests running it. **Only a hint**: it prefills an automation the user may create. Installing a skill never makes it run by itself. Values: `after_meeting`; `before_meeting` or `before_meeting <minutes>`; `schedule <when>`, where `<when>` is `hourly`, `daily HH:MM`, `weekdays HH:MM` or a weekday and a time (`monday 09:00`), in the user's local time. |
-| `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `jira`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
+| `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `atlassian`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
 | `tools` | The tools of those connections it uses, comma-separated as `<connection>__<tool>` (`linear__list_teams, linear__save_issue`). A run of the skill is offered only these of a connection it lists any of, not the service's other tools, and the app shows them before you install. Every connection tool the instructions name must be listed here. |
 | `document` | When the skill runs as a step of a meeting's processing, the name of the document its reply is saved as (`Summary`, `Follow-up email`). |
 | `category` | A short label for browsing: `Preparation`, `Follow-up`, `Review`, `Sales`, `Learning`… |
@@ -102,6 +102,7 @@ A skill may name these tools. Where it runs decides which are offered:
 | `read_memory` | ✓ | ✓ |  | What the user asked the assistant to remember about them. |
 | `remember` | ✓ |  |  | Propose a line for that memory. |
 | `edit_memory` | ✓ |  |  | Propose changes to that memory. |
+| `draft_email` | ✓ |  |  | Offer an email draft (to, subject, body) that the user opens in their mail app or Gmail with one click. Nothing is sent. |
 | `write_document` |  |  | ✓ | Write a document into the meeting being processed. |
 | `set_title` |  |  | ✓ | Name the meeting being processed. |
 
@@ -126,6 +127,8 @@ connections/<id>/
   "name": "Example Tracker",
   "url": "https://mcp.example-tracker.com/mcp",
   "auth": "oauth",
+  "description": "Turn action items into issues.",
+  "category": "tasks",
   "suggested": { "create_issue": "ask" }
 }
 ```
@@ -137,6 +140,8 @@ connections/<id>/
 | `url` | The service's own remote MCP server. |
 | `auth` | `oauth` (the user signs in on the service's page) or `api_key` (the user pastes a key). |
 | `client_id` | Only for a service that does not let apps register themselves: Samurai Scribe's public OAuth client id there. |
+| `description` | One line, at most 120 characters, on what it is for beside meetings. Shown under its name. |
+| `category` | How the app groups it: `tasks`, `docs`, `crm`, `scheduling`, `chat` or `files`. |
 | `suggested` | Starting permissions for named tools: `allow` or `ask`. Any tool not named starts at Allow if the server marks it read-only, else Ask. A preset can never start a tool at "allow in automatic runs". |
 
 Only services with an official remote MCP server are listed. Logos are used to name the service, following its brand guidelines.
