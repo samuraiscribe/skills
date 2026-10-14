@@ -19,7 +19,12 @@ or documentation; the arguments marked in each still need a real `tools/list`.
 | [action-items-to-clickup](action-items-to-clickup/SKILL.md) | The task tool's field names beyond `name` and the list id. |
 | [meeting-notes-to-notion](meeting-notes-to-notion/SKILL.md) | Where a page with no `parent` lands. |
 | [call-notes-to-attio](call-notes-to-attio/SKILL.md) | The search, note and task tools' argument names: Attio documents only the tool names. |
-| [book-a-follow-up](book-a-follow-up/SKILL.md) | The Calendly tools' argument names: Calendly documents only the tool names. |
+
+Calendly was tried and taken out: its server lets apps register, then refuses
+any sign-in that returns to `http://127.0.0.1`, which is how every desktop
+sign-in returns (`scripts/check_connections.py --register` shows it). It needs
+an https return address — a page on `hub.samuraiscribe.com` that hands the
+browser back to the app — before it can come back.
 
 A Jira skill is waiting on one question: Atlassian's v2 address may offer two
 general tools (`discover`, `execute`) rather than its own, unless asked for

@@ -31,4 +31,4 @@ jobs:
                 [ -f "connections/$id/connection.json" ] && echo "$id"
               done)
           if [ -z "$changed" ]; then echo "No connection changed"; exit 0; fi
-          python3 scripts/check_connections.py $changed
+          python3 scripts/check_connections.py --register $changed

@@ -1,8 +1,0 @@
-{
-  "id": "calendly",
-  "name": "Calendly",
-  "url": "https://mcp.calendly.com",
-  "auth": "oauth",
-  "description": "Make a scheduling link for a follow-up meeting and put it in your email.",
-  "category": "scheduling"
-}

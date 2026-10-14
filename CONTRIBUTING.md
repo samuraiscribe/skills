@@ -44,8 +44,10 @@ connections/<id>/
 The app signs in with no account of its own at the service, so the service's sign-in must let apps register themselves (OAuth dynamic client registration). Check it before opening the pull request; the pull request runs the same check:
 
 ```
-python3 scripts/check_connections.py <id>
+python3 scripts/check_connections.py --register <id>
 ```
+
+`--register` really registers, with the address the app's sign-in returns to (`http://127.0.0.1:…`): some services advertise registration and then refuse a desktop app's loopback address.
 
 Every connection should have at least one skill that uses it.
 
