@@ -4,8 +4,8 @@ Thank you for sharing a skill. Here is how to get one merged.
 
 ## Adding a skill
 
-1. **Write it in the app.** In Samurai Scribe, Skills & Tools → New Skill. Give it a clear description: the assistant decides to use a skill from that line alone.
-2. **Try it** on at least three real meetings of different lengths, from Skills & Tools (▶). Read what it produced. Fix the instructions until it is right every time.
+1. **Write it in the app.** In Samurai Scribe, Skills → New Skill. Give it a clear description: the assistant decides to use a skill from that line alone.
+2. **Try it** on at least three real meetings of different lengths, from Skills (▶ on the skill's row). Read what it produced. Fix the instructions until it is right every time.
 3. **Copy its folder** from your vault's `Skills/` into `skills/` here, and open a pull request.
 
 The pull request is checked automatically (`scripts/validate.py`): the folder name, the header, that every tool it names exists, and its size. You can run the same check first:
@@ -22,7 +22,7 @@ python3 scripts/validate.py
 - **"Use only what was said"**. A skill that invents a decision or a date is worse than none.
 - **Portable**: nothing about your own vault. No folder names you made, no people's names, no client names, no email addresses. Use the tools to find things instead.
 - **When it runs is not in the skill.** You may add `suggested_trigger` (see SPEC.md); the user decides.
-- **Say what it runs on** with `accepts` (required here): `meeting`, `calendar_event`, `none`, or a list such as `meeting, none` when a meeting is optional. The app's editor sets it under **Runs on**, and running the skill offers exactly these. Name only what the instructions handle: a skill that reads a meeting's Summary does not accept `none`.
+- **Say what it runs on** with `accepts` (required here): `meeting`, `calendar_event`, `none`, or a list such as `meeting, none` when a meeting is optional. The app's editor sets it under **Works on**, and running the skill offers exactly these. Name only what the instructions handle: a skill that reads a meeting's Summary does not accept `none`.
 
 ### `tested_with`
 

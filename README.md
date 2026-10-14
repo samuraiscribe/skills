@@ -1,43 +1,55 @@
 # Samurai Scribe skills
 
-Skills for [Samurai Scribe](https://samuraiscribe.com), the private, local meeting notetaker: plain-English instructions its assistant follows to do something useful with your meetings — prepare you for the next one, keep a decision log, track your action items, review your week.
+This repo holds the skills and connections you can add from the Skills page in [Samurai Scribe](https://samuraiscribe.com).
 
-A skill is just a folder with a `SKILL.md` in the open [Agent Skills](https://agentskills.io) format, so you can read every word of what it will do before you use it. Skills run on your own computer, on the model you chose; nothing here sends your meetings anywhere.
+- A **skill** is a set of instructions the app's assistant follows to do something with your meetings, like writing a prep brief before a call or keeping a log of decisions. Each one is a folder with a `SKILL.md` file in the [Agent Skills](https://agentskills.io) format. It's plain text, so you can read exactly what a skill will do before you install it.
+- A **connection** lets a skill work in another service, like creating issues in Linear. A connection is only an address, not code. The service runs its own MCP server, and the app signs in to it once you approve.
 
-## The skills
+Skills run on your computer with whatever model you've picked in the app. Nothing leaves your machine unless a skill uses a connection.
 
-| Skill | What it does | Suggested to run |
+## Skills
+
+| Skill | What it does | Suggested schedule |
 |---|---|---|
-| [meeting-prep-brief](skills/meeting-prep-brief/SKILL.md) | A one-page brief before a meeting, from earlier meetings with the same people or on the same topic | 15 min before calendar meetings |
-| [weekly-review](skills/weekly-review/SKILL.md) | The past seven days of meetings in one note: decisions, open items, loose ends | Mondays at 09:00 |
+| [meeting-prep-brief](skills/meeting-prep-brief/SKILL.md) | A one-page brief before a meeting, based on earlier meetings with the same people or on the same topic | 15 min before calendar meetings |
+| [weekly-review](skills/weekly-review/SKILL.md) | One note covering the past week of meetings: decisions, open items, loose ends | Mondays at 09:00 |
 | [my-action-items](skills/my-action-items/SKILL.md) | Everything you committed to in the last two weeks, in one list | Weekday mornings |
-| [one-on-one-tracker](skills/one-on-one-tracker/SKILL.md) | Adds each 1:1 to a running note per person | After 1:1s |
-| [decision-log](skills/decision-log/SKILL.md) | Adds each meeting's decisions to one running log | After meetings |
-| [sales-call-notes](skills/sales-call-notes/SKILL.md) | Pain, decision maker, budget, timeline, objections, next step | After sales calls |
-| [lecture-study-guide](skills/lecture-study-guide/SKILL.md) | Concepts, definitions, examples and practice questions from a lecture | By hand |
-
-## Install one
-
-Copy the skill's folder into your vault's **Skills** folder (the one beside `Meetings/`). It appears in **Skills & Tools** at once.
-
-A skill never runs by itself because you installed it. Run it from Skills & Tools or the assistant, or give it an **automation** — after meetings, before calendar meetings, or on a schedule — in Skills & Tools → Automations. The "Suggested to run" column is only a suggestion for that.
-
-One-click install from inside the app is on its way.
+| [one-on-one-tracker](skills/one-on-one-tracker/SKILL.md) | Adds each 1:1 to a running note for that person | After 1:1s |
+| [decision-log](skills/decision-log/SKILL.md) | Adds each meeting's decisions to a running log | After meetings |
+| [sales-call-notes](skills/sales-call-notes/SKILL.md) | Pain points, decision maker, budget, timeline, objections and next step | After sales calls |
+| [lecture-study-guide](skills/lecture-study-guide/SKILL.md) | Concepts, definitions, examples and practice questions from a lecture | Manually |
+| [action-items-to-linear](skills/action-items-to-linear/SKILL.md) | Creates a Linear issue for each action item in a meeting (needs the Linear connection) | After meetings |
 
 ## Connections
 
-`connections/` will list services a skill can act in — Jira, Linear, Notion and others — as small address files. A connection is not code: each service runs its own server, and Samurai Scribe signs in to it with your permission. See [SPEC.md](SPEC.md#connections-the-repositorys-connections-folder).
+| Connection | What it's for |
+|---|---|
+| [Linear](connections/linear/connection.json) | Turn a meeting's action items into Linear issues |
+| [Jira & Confluence](connections/atlassian/connection.json) | File action items as Jira issues and keep meeting notes in Confluence |
+| [Notion](connections/notion/connection.json) | Keep meeting notes, decisions and summaries in your Notion workspace |
+| [Todoist](connections/todoist/connection.json) | Send a meeting's action items to your Todoist inbox or a project |
+| [monday.com](connections/monday/connection.json) | Add a meeting's action items to a monday.com board |
+| [ClickUp](connections/clickup/connection.json) | Turn a meeting's action items into ClickUp tasks |
+| [Attio](connections/attio/connection.json) | Log call notes and follow-up tasks on the right Attio records |
 
-## Make your own
+The Linear skill is published. Skills for most of the other services are still in [`drafts/`](drafts/).
 
-Write it in Samurai Scribe (Skills & Tools → New Skill), try it on a few meetings, then open a pull request here. [CONTRIBUTING.md](CONTRIBUTING.md) says how; [SPEC.md](SPEC.md) is the format.
+## Installing
+
+Open the Skills page in Samurai Scribe. Skills from this repo are listed below your own. Click one to read it, then press Install. The app checks the files against what's published here, and lets you know when an installed skill has an update. You can also copy a skill's folder into the Skills folder in your vault (next to `Meetings/`).
+
+Connections are on the Connections tab of the same page. When you open a skill that needs one, it says so and offers a button to connect.
+
+Installing a skill doesn't make it run. You can run it yourself from the Skills page or the assistant, or set up an automation under Skills → Automations to run it after meetings, before calendar events or on a schedule. The suggested schedule in the table is only a starting point.
+
+## Writing your own
+
+Create the skill in the app (Skills → New Skill) and try it on a few meetings. When it works well, open a pull request. [CONTRIBUTING.md](CONTRIBUTING.md) explains the process for skills and connections, and [SPEC.md](SPEC.md) describes the format.
+
+## Drafts
+
+[`drafts/`](drafts/) has skills that aren't published yet because they don't work reliably on the app's built-in local model, so the app doesn't list them. Getting one of them to pass is a good first contribution.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
-## Drafts
-
-[`drafts/`](drafts/) holds skills that are not published yet because they do not
-pass on the app's built-in local model. They are not in the app's list. Improving
-one until it passes is a welcome first contribution: see [CONTRIBUTING.md](CONTRIBUTING.md).
