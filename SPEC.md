@@ -102,7 +102,7 @@ A skill may name these tools. Where it runs decides which are offered:
 | `read_memory` | ✓ | ✓ |  | What the user asked the assistant to remember about them. |
 | `remember` | ✓ |  |  | Propose a line for that memory. |
 | `edit_memory` | ✓ |  |  | Propose changes to that memory. |
-| `draft_email` | ✓ |  |  | Offer an email draft (to, subject, body) that the user opens in their mail app or Gmail with one click. Nothing is sent. |
+| `draft_email` | ✓ |  |  | Offer an email draft (to, subject, body, and the `meeting_id` it follows up) that the user opens in their mail app or Gmail with one click. Nothing is sent. A draft with a `[placeholder]` in it, or addressed to the user, is refused. |
 | `write_document` |  |  | ✓ | Write a document into the meeting being processed. |
 | `set_title` |  |  | ✓ | Name the meeting being processed. |
 

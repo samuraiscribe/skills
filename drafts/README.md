@@ -6,7 +6,7 @@ The app never lists them.
 
 | Skill | What goes wrong on the local model |
 |---|---|
-| [follow-up-email](follow-up-email/SKILL.md) | On a meeting where nothing was decided or assigned, it invents decisions and tasks (and a `[date]` placeholder) rather than leaving those sections out; it sometimes signs the email. Fine on meetings with clear decisions. Version 1.1 hands the draft to the app's `draft_email` instead of writing a note: not yet re-qualified. |
+| *(none waiting)* | follow-up-email passed in October 2026 once the app kept a draft that could not be sent as it stands from reaching the user (`draft_email` refuses placeholders, transcript labels, empty sections, the user's own address and addresses not invited). |
 
 These were written for the connections added in October 2026 and have not run
 against a live account yet. Each tool name comes from the service's own source
