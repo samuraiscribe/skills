@@ -1,0 +1,390 @@
+{
+  "spec": 1,
+  "commit": "444e2015ba0df4f780efc53504e767eedf72667b",
+  "skills": [
+    {
+      "name": "action-items-to-linear",
+      "description": "Files a meeting's action items in Linear — one issue per task, with the owner and due date that were said and a line saying which meeting it came from. Use it after a meeting whose tasks your team tracks in Linear.",
+      "category": "Follow-up",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [
+        "linear"
+      ],
+      "tested_with": [],
+      "version": "1.0",
+      "files": [
+        {
+          "path": "skills/action-items-to-linear/SKILL.md",
+          "sha256": "efeb96935e6c835053c12e8f57e5d68ebd91db770e883253a40e98bda10354c1",
+          "size": 1996
+        }
+      ]
+    },
+    {
+      "name": "coach-me",
+      "description": "Gives you honest, specific feedback on how you came across in a meeting — how much you talked, how you listened and asked questions, how clearly you explained — with real moments from the conversation and two or three things to try next time. Use it after a sales call, an interview you ran, a 1:1 or a presentation you want to get better at.",
+      "category": "Coaching",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": null,
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.1",
+      "files": [
+        {
+          "path": "skills/coach-me/SKILL.md",
+          "sha256": "a1b67450576495616c7122ac8cd6e9e9c0fc345fdb2cf292379f562f2d9f7a19",
+          "size": 2949
+        }
+      ]
+    },
+    {
+      "name": "decision-log",
+      "description": "Adds the decisions made in a meeting to a running decision log, each with its date, context and the meeting it came from. Use it so you can always answer \"when did we decide that, and why?\".",
+      "category": "Follow-up",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.2",
+      "files": [
+        {
+          "path": "skills/decision-log/SKILL.md",
+          "sha256": "e25c63356684a766ccf20e71da8d7d3251bc467f1556f5977836e7ed0dfbc377",
+          "size": 1737
+        }
+      ]
+    },
+    {
+      "name": "follow-up-email",
+      "description": "Drafts a follow-up email after a meeting, addressed to the people who were invited — thanks, what was decided, who does what by when, and next steps. Use it after a call with a client, a candidate or a partner.",
+      "category": "Follow-up",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.5",
+      "files": [
+        {
+          "path": "skills/follow-up-email/SKILL.md",
+          "sha256": "4595d4d93b86830b57951154f564a1cfc39e07eec6e2b4d9a9c06a0e9d23f6a5",
+          "size": 3639
+        }
+      ]
+    },
+    {
+      "name": "interview-scorecard",
+      "description": "Turns a job interview you ran into a scorecard — a rating for each area with evidence and times from the conversation, strengths, concerns, what the candidate asked, notice period and salary if they came up, and a suggested recommendation for you to confirm. Use it after an interview, before you fill in your hiring system.",
+      "category": "Recruiting",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.4",
+      "files": [
+        {
+          "path": "skills/interview-scorecard/SKILL.md",
+          "sha256": "5dbeb659a4c18a586074da83e0bf73de135c8298d108d4482893dba9362a8aae",
+          "size": 4026
+        }
+      ]
+    },
+    {
+      "name": "lecture-study-guide",
+      "description": "Turns a recorded lecture or talk into a study guide — key concepts, definitions, examples, and practice questions with answers. Use it after a class, a course video or a talk you want to learn from.",
+      "category": "Learning",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": null,
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.1",
+      "files": [
+        {
+          "path": "skills/lecture-study-guide/SKILL.md",
+          "sha256": "cf229dd474eed5b81735192df1ed9b5494446bb736f9e53d6a8a55a35c48b9e7",
+          "size": 1752
+        }
+      ]
+    },
+    {
+      "name": "meeting-prep-brief",
+      "description": "Before a meeting, writes a one-page brief from the last time you met the same people — who is coming, what happened last time, open action items, open questions. Use it to get ready for a follow-up meeting.",
+      "category": "Preparation",
+      "accepts": [
+        "calendar_event",
+        "meeting"
+      ],
+      "suggested_trigger": "before_meeting 15",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.3",
+      "files": [
+        {
+          "path": "skills/meeting-prep-brief/SKILL.md",
+          "sha256": "6c1ad27f2a8dfcf5fe8fdedf4d717b5be1826f612ec9cc9023bba1cdd0ac4121",
+          "size": 2844
+        }
+      ]
+    },
+    {
+      "name": "my-action-items",
+      "description": "Collects everything you committed to in the past two weeks of meetings into one list, with the meeting each came from. Use it to see what you still owe people.",
+      "category": "Review",
+      "accepts": [
+        "none"
+      ],
+      "suggested_trigger": "schedule weekdays 08:30",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.1",
+      "files": [
+        {
+          "path": "skills/my-action-items/SKILL.md",
+          "sha256": "cf7fdb2ec9db58061a20718928f0f9971d9134244712408b1fb35ecdc9aa0bd1",
+          "size": 1404
+        }
+      ]
+    },
+    {
+      "name": "one-on-one-tracker",
+      "description": "After a one-on-one, adds what was discussed — topics, feedback, commitments, what to follow up next time — to a running note for that person. Use it for recurring 1:1s with your team or your manager.",
+      "category": "Management",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.2",
+      "files": [
+        {
+          "path": "skills/one-on-one-tracker/SKILL.md",
+          "sha256": "77dac7c79ea84726e958b3fc2f3b7ed294199688d5f67f9a0c136f457d063a2b",
+          "size": 1880
+        }
+      ]
+    },
+    {
+      "name": "sales-call-notes",
+      "description": "Turns a sales or discovery call into structured notes — the customer's pain, who decides, budget, timeline, objections and the agreed next step. Use it after a call with a prospect or customer.",
+      "category": "Sales",
+      "accepts": [
+        "meeting"
+      ],
+      "suggested_trigger": "after_meeting",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.1",
+      "files": [
+        {
+          "path": "skills/sales-call-notes/SKILL.md",
+          "sha256": "256279439ffac6d2422fa9cafabdb71e49499bc4954cbdbd48932b05116f6628",
+          "size": 1985
+        }
+      ]
+    },
+    {
+      "name": "weekly-review",
+      "description": "Reviews the past seven days of meetings in one note — what each was about, the decisions made, open action items and loose ends. Use it on Monday mornings, or whenever you want to catch up on a week.",
+      "category": "Review",
+      "accepts": [
+        "none"
+      ],
+      "suggested_trigger": "schedule monday 09:00",
+      "requires": [],
+      "tested_with": [
+        "local"
+      ],
+      "version": "1.1",
+      "files": [
+        {
+          "path": "skills/weekly-review/SKILL.md",
+          "sha256": "4496fa2793994e2fd9d8095f7a160aa8eb1bc56117de66b519e59e59f3a58bf7",
+          "size": 1658
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "atlassian",
+      "name": "Jira & Confluence",
+      "url": "https://mcp.atlassian.com/v2/mcp",
+      "auth": "oauth",
+      "description": "File action items as Jira issues and keep meeting notes in Confluence.",
+      "category": "tasks",
+      "files": [
+        {
+          "path": "connections/atlassian/connection.json",
+          "sha256": "574679a6ad9bc20d0229a994561b51536d77e3b750e34aecf7ad1670c9deb55e",
+          "size": 233
+        },
+        {
+          "path": "connections/atlassian/logo.png",
+          "sha256": "30141d6883628f87dd7a9134ec72e132850d2d439fceb672dd7a17f0dbc5cad5",
+          "size": 15373
+        }
+      ]
+    },
+    {
+      "id": "attio",
+      "name": "Attio",
+      "url": "https://mcp.attio.com/mcp",
+      "auth": "oauth",
+      "description": "Log call notes and follow-up tasks on the right Attio records.",
+      "category": "crm",
+      "files": [
+        {
+          "path": "connections/attio/connection.json",
+          "sha256": "f3aab8b051b199cc7b03cc25fe8bcd8ca5ccd1606da6202f47367ffae17d4b9e",
+          "size": 200
+        },
+        {
+          "path": "connections/attio/logo-dark.png",
+          "sha256": "6684e3015474e245de4795c10dc1e2b677e5698dcfbc8f310a5845d5ddd63f5e",
+          "size": 27464
+        },
+        {
+          "path": "connections/attio/logo.png",
+          "sha256": "9a6cb105cb0a761bcbf05b4a81c98141537963503d80632553c76949681762e2",
+          "size": 22798
+        }
+      ]
+    },
+    {
+      "id": "clickup",
+      "name": "ClickUp",
+      "url": "https://mcp.clickup.com/mcp",
+      "auth": "oauth",
+      "description": "Turn a meeting's action items into ClickUp tasks.",
+      "category": "tasks",
+      "files": [
+        {
+          "path": "connections/clickup/connection.json",
+          "sha256": "8140b3875eaeec20c3b50074bbeb8d71a16837a9a2d415cc903f73df8fc4dc7f",
+          "size": 195
+        },
+        {
+          "path": "connections/clickup/logo.png",
+          "sha256": "d0c37044a6c9b971fd11152982443ab3188d6092b15a3373cc5883c250e6ff96",
+          "size": 90508
+        }
+      ]
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "url": "https://mcp.linear.app/mcp",
+      "auth": "oauth",
+      "description": "Turn a meeting's action items into Linear issues.",
+      "category": "tasks",
+      "files": [
+        {
+          "path": "connections/linear/connection.json",
+          "sha256": "d2cb83e0228d06b864b5f41051ce24547035550025505371e03158d05803d929",
+          "size": 192
+        },
+        {
+          "path": "connections/linear/logo-dark.png",
+          "sha256": "2f026d66fd785721263785bb297194a50182e28e865e637a45eadf6e4e54e359",
+          "size": 2364
+        },
+        {
+          "path": "connections/linear/logo.png",
+          "sha256": "1fb31df139bb786a3c5662bc53b3f82bd6804629fd7ea6002ec603bb6eafb113",
+          "size": 2472
+        }
+      ]
+    },
+    {
+      "id": "monday",
+      "name": "monday.com",
+      "url": "https://mcp.monday.com/mcp",
+      "auth": "oauth",
+      "description": "Add a meeting's action items as items on a monday.com board.",
+      "category": "tasks",
+      "files": [
+        {
+          "path": "connections/monday/connection.json",
+          "sha256": "8ca01d57ca3859808d8fe730172fd323dedd8bfdfdf3f3af9d452e74d95cc3e7",
+          "size": 207
+        },
+        {
+          "path": "connections/monday/logo.png",
+          "sha256": "a1e36f3da8449600bd198f96aa269a0f2f6ff40f35da1d2ec5aa89b1fc26f24d",
+          "size": 23180
+        }
+      ]
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "url": "https://mcp.notion.com/mcp",
+      "auth": "oauth",
+      "description": "Keep meeting notes, decisions and summaries in your Notion workspace.",
+      "category": "docs",
+      "files": [
+        {
+          "path": "connections/notion/connection.json",
+          "sha256": "094304e78accce2dbae6de099408df9c6316c9154504f8ada1944123b5f90d63",
+          "size": 211
+        },
+        {
+          "path": "connections/notion/logo.png",
+          "sha256": "d5d0f0cd17526981ec69201ae0189a63d70c0c0ebf8bd8640b19d859c7ecf4b0",
+          "size": 14519
+        }
+      ]
+    },
+    {
+      "id": "todoist",
+      "name": "Todoist",
+      "url": "https://ai.todoist.net/mcp",
+      "auth": "oauth",
+      "description": "Send a meeting's action items to your Todoist inbox or a project.",
+      "category": "tasks",
+      "files": [
+        {
+          "path": "connections/todoist/connection.json",
+          "sha256": "af6a5511ea9e12fc3e586abb2e634aacb687af6552550738837da579cf7bfa6e",
+          "size": 210
+        },
+        {
+          "path": "connections/todoist/logo.png",
+          "sha256": "e0de7e5e02ca694c11ed6c5032eb5b6b58926e47c0070e62c666db01ba1b0291",
+          "size": 33106
+        }
+      ]
+    }
+  ]
+}
