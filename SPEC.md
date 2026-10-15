@@ -44,7 +44,7 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 
 | Key | Meaning |
 |---|---|
-| `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
+| `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees with their addresses — the user marked `(you)` when known — and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
 | `suggested_trigger` | When the author suggests running it. **Only a hint**: it prefills an automation the user may create. Installing a skill never makes it run by itself. Values: `after_meeting`; `before_meeting` or `before_meeting <minutes>`; `schedule <when>`, where `<when>` is `hourly`, `daily HH:MM`, `weekdays HH:MM` or a weekday and a time (`monday 09:00`), in the user's local time. |
 | `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `atlassian`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
 | `tools` | The tools of those connections it uses, comma-separated as `<connection>__<tool>` (`linear__list_teams, linear__save_issue`). A run of the skill is offered only these of a connection it lists any of, not the service's other tools, and the app shows them before you install. Every connection tool the instructions name must be listed here. |
@@ -81,8 +81,9 @@ A skill may name these tools. Where it runs decides which are offered:
 | `search` | ✓ | ✓ | ✓ | Search everything, by name or content: transcripts (lines with meeting ids and times), every meeting's notes, titles, speakers, and the user's notes elsewhere. With `meeting_id`, one meeting. |
 | `list_meetings` | ✓ | ✓ |  | Meetings by date or title, newest first. |
 | `upcoming_meetings` | ✓ | ✓ |  | Calendar meetings ahead, with attendees, linked to their meeting if one exists. |
-| `get_meeting` | ✓ | ✓ |  | One meeting: title, date, speakers, its notes and folder. |
+| `get_meeting` | ✓ | ✓ |  | One meeting: title, date, speakers, its notes and folder, and its calendar event's attendees as `Name <email>`, the user marked `(you)` when known. |
 | `read_transcript` | ✓ | ✓ | ✓ | A meeting's transcript, a window at a time (`from_seconds`). |
+| `speaker_stats` | ✓ | ✓ |  | How the talking was shared: each speaker's share, turns, longest stretch, pace and questions asked, and which speaker is the user when known. |
 | `digest_transcript` | ✓ |  | ✓ | Reads a whole meeting for one instruction and returns the notes; the way to read a long meeting on a small model. |
 | `read_document` | ✓ | ✓ | ✓ | One of a meeting's notes by name: `Summary`, `Notes`, or any other in its folder. |
 | `list_folder` | ✓ | ✓ |  | What a folder holds. |
@@ -106,8 +107,6 @@ A skill may name these tools. Where it runs decides which are offered:
 | `set_title` |  |  | ✓ | Name the meeting being processed. |
 
 A skill meant for both the app and AI apps should read meetings with `read_transcript`, not `digest_transcript`. A connection's tools (once connected) are named `<connection>__<tool>`; a skill that uses them lists the connection in `requires` and the tools in `tools`, and its runs are offered only those.
-
-Tool names do not change once a release has shipped them. If one is renamed after that, its old name keeps working.
 
 ## Connections (the repository's `connections/` folder)
 

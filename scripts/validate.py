@@ -41,7 +41,7 @@ CATEGORIES = ("tasks", "docs", "crm", "scheduling", "chat", "files")
 MAX_DESCRIPTION = 120
 # A word that reads like a tool name: verb_object.
 TOOL_LIKE = re.compile(
-    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember|draft)_[a-z_]+\b"
+    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember|draft|speaker)_[a-z_]+\b"
 )
 
 
