@@ -46,7 +46,7 @@ Other top-level keys (`license`, …) and other `metadata` keys are allowed and 
 |---|---|
 | `accepts` | What the skill is run on, comma-separated, in the order the app offers them when someone runs it: `meeting` (a meeting in the vault, transcribed or not), `calendar_event` (a calendar meeting, usually one coming up; the run is told its title, time, attendees with their addresses — the user marked `(you)` when known — and invitation), `none` (nothing). `none` beside another word makes it optional: `"meeting, none"` runs on a meeting or on nothing. **Declare it**: without it the app guesses — a meeting if the skill has a `document` or suggests `after_meeting`, otherwise nothing. Words reserved for later: `notebook`, `note`, `folder`. The app skips a word it does not know, so a skill written for a newer version still runs; the repository's checks refuse one, so a typo fails its pull request. |
 | `suggested_trigger` | When the author suggests running it. **Only a hint**: it prefills an automation the user may create. Installing a skill never makes it run by itself. Values: `after_meeting`; `before_meeting` or `before_meeting <minutes>`; `schedule <when>`, where `<when>` is `hourly`, `daily HH:MM`, `weekdays HH:MM` or a weekday and a time (`monday 09:00`), in the user's local time. |
-| `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `atlassian`), never a name a user gave their own connection. Until each is connected, the app shows the skill greyed out with a Connect button. |
+| `requires` | Connections the skill needs, comma-separated **preset ids** from the repository's `connections/` folder (`linear`, `atlassian`), never a name a user gave their own connection. Until each is connected, the library shows **Needs <service> — Connect** on the skill, and an automation doesn't run it. |
 | `tools` | The tools of those connections it uses, comma-separated as `<connection>__<tool>` (`linear__list_teams, linear__save_issue`). A run of the skill is offered only these of a connection it lists any of, not the service's other tools, and the app shows them before you install. Every connection tool the instructions name must be listed here. |
 | `document` | When the skill runs as a step of a meeting's processing, the name of the document its reply is saved as (`Summary`, `Follow-up email`). |
 | `category` | A short label for browsing: `Preparation`, `Follow-up`, `Review`, `Sales`, `Learning`… |
@@ -78,20 +78,23 @@ A skill may name these tools. Where it runs decides which are offered:
 
 | Tool | Chat | AI apps | Processing step | What it does |
 |---|:-:|:-:|:-:|---|
-| `search` | ✓ | ✓ | ✓ | Search everything, by name or content: transcripts (lines with meeting ids and times), every meeting's notes, titles, speakers, and the user's notes elsewhere. With `meeting_id`, one meeting. |
+| `search` | ✓ | ✓ | ✓ | Search everything, by name or content: transcripts (lines with meeting ids and times), every meeting's notes, titles, speakers, and the user's notes elsewhere — with the text of the PDFs, Word files, decks and text files beside them. With `meeting_id`, one meeting. |
 | `list_meetings` | ✓ | ✓ |  | Meetings by date or title, newest first. |
 | `upcoming_meetings` | ✓ | ✓ |  | Calendar meetings ahead, with attendees, linked to their meeting if one exists. |
 | `get_meeting` | ✓ | ✓ |  | One meeting: title, date, speakers, its notes and folder, and its calendar event's attendees as `Name <email>`, the user marked `(you)` when known. |
 | `read_transcript` | ✓ | ✓ | ✓ | A meeting's transcript, a window at a time (`from_seconds`). |
 | `speaker_stats` | ✓ | ✓ |  | How the talking was shared: each speaker's share, turns, longest stretch, pace and questions asked, and which speaker is the user when known. |
 | `digest_transcript` | ✓ |  | ✓ | Reads a whole meeting for one instruction and returns the notes; the way to read a long meeting on a small model. |
-| `read_document` | ✓ | ✓ | ✓ | One of a meeting's notes by name: `Summary`, `Notes`, or any other in its folder. |
-| `list_folder` | ✓ | ✓ |  | What a folder holds. |
-| `read_note` | ✓ | ✓ |  | Any note's text, by its path — a meeting's included. |
+| `read_document` | ✓ | ✓ | ✓ | One of a meeting's notes by name: `Summary`, `Notes`, or any other in its folder — or, by its file name, the text of a PDF, Word file or deck there. |
+| `list_folder` | ✓ | ✓ |  | What a folder holds: folders, notes, and the files read as text. |
+| `read_note` | ✓ | ✓ |  | Any note's text, by its path — a meeting's included — or the text of a PDF, Word file, PowerPoint deck (slides and speaker notes) or text file. Files are read-only. |
 | `create_note` | ✓ | ✓ |  | Propose a new note. |
 | `edit_note` | ✓ | ✓ |  | Propose changes to a note. |
 | `move_note` | ✓ | ✓ |  | Propose moving a note. |
 | `delete_note` | ✓ | ✓ |  | Propose moving a note to the trash. |
+| `edit_transcript` | ✓ | ✓ |  | Propose changes to a meeting's transcript, read first with `read_document` (name `Transcript`): `replace` (find and replace everywhere), exact `edits`, or the whole `content`. Renaming a speaker on every line (`[[Speaker 2]]` → `[[Full Name]]`) names that person, unconfirmed until the user confirms; a line split from the one before it is headed `### ~ [[Name]]` and the app works out its time. An edit that drops much of the meeting is refused unless `allow_removal` is true. |
+| `rewrite_transcript` | ✓ |  |  | Propose a meeting's whole transcript corrected for one instruction (misheard words, punctuation, consistent names and terms), read and rewritten a part at a time to fit the model; a part that loses words is left as it was. |
+| `rename_person` | ✓ | ✓ |  | Propose renaming a person the user has named, in every meeting they speak in. |
 | `list_notebooks` | ✓ | ✓ |  | The user's notebooks and the meetings in each. |
 | `create_notebook` | ✓ | ✓ |  | Propose a notebook. |
 | `add_to_notebook` | ✓ | ✓ |  | Propose adding meetings to a notebook. |

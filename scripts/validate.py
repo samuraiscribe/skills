@@ -28,7 +28,10 @@ KNOWN_METADATA = {"accepts", "suggested_trigger", "requires", "tools", "document
 RETIRED_METADATA = {"trigger", "schedule", "minutes_before", "title_contains"}
 MAX_SKILL_MD = 20_000
 MAX_SKILL_FOLDER = 1_000_000
-MAX_FILES = 50
+# The app refuses to install a skill with more files than this, or with any
+# one file larger than MAX_FILE (its own check, run on every install).
+MAX_FILES = 32
+MAX_FILE = 512 * 1024
 MAX_LOGO = 200_000
 # Any square size in this range: a brand's file is kept exactly as the brand
 # ships it (several brand guidelines forbid altering them), and the app
@@ -41,7 +44,7 @@ CATEGORIES = ("tasks", "docs", "crm", "scheduling", "chat", "files")
 MAX_DESCRIPTION = 120
 # A word that reads like a tool name: verb_object.
 TOOL_LIKE = re.compile(
-    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember|draft|speaker)_[a-z_]+\b"
+    r"\b(?:read|list|search|create|edit|get|use|write|set|move|delete|add|check|digest|upcoming|remember|draft|speaker|rewrite|rename)_[a-z_]+\b"
 )
 
 
@@ -155,6 +158,9 @@ def check_skill(folder: Path, tools: set[str], connections: set[str]) -> list[st
     files = [p for p in folder.rglob("*") if p.is_file()]
     if len(files) > MAX_FILES:
         out.append(f"{where}: {len(files)} files; at most {MAX_FILES}")
+    for p in files:
+        if p.stat().st_size > MAX_FILE:
+            out.append(f"{where}: {p.relative_to(folder)} is larger than {MAX_FILE // 1024} KB")
     if sum(p.stat().st_size for p in files) > MAX_SKILL_FOLDER:
         out.append(f"{where}: larger than {MAX_SKILL_FOLDER // 1000} KB")
     if any(part.startswith(".") for p in files for part in p.relative_to(folder).parts):
