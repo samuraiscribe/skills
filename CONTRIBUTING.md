@@ -5,7 +5,7 @@ Thank you for sharing a skill. Here is how to get one merged.
 ## Adding a skill
 
 1. **Write it in the app.** In Samurai Scribe, Skills → New Skill. Give it a clear description: the assistant decides to use a skill from that line alone.
-2. **Try it** on at least three real meetings of different lengths, from Skills (▶ on the skill's row). Read what it produced. Fix the instructions until it is right every time.
+2. **Try it** on at least three real meetings of different lengths, from the Skills page (▶ on the skill's card). Read what it produced. Fix the instructions until it is right every time.
 3. **Copy its folder** from your vault's `Skills/` into `skills/` here, and open a pull request.
 
 The pull request is checked automatically (`scripts/validate.py`): the folder name, the header, that every tool it names exists, and its size. You can run the same check first:
