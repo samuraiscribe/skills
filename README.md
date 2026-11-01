@@ -5,7 +5,7 @@ This repo holds the skills and connections you can add from the Skills page in [
 - A **skill** is a set of instructions the app's assistant follows to do something with your meetings, like writing a prep brief before a call or keeping a log of decisions. Each one is a folder with a `SKILL.md` file in the [Agent Skills](https://agentskills.io) format. It's plain text, so you can read exactly what a skill will do before you install it.
 - A **connection** lets a skill work in another service, like creating issues in Linear. A connection is only an address, not code. The service runs its own MCP server, and the app signs in to it once you approve.
 
-Skills run on your computer with whatever model you've picked in the app. Nothing leaves your machine unless a skill uses a connection.
+Skills run with whatever model you've picked in the app. With the built-in model they run on your computer, and nothing leaves it unless a skill uses a connection. With a hosted model, what a skill reads is sent to that model's provider.
 
 ## Skills
 
@@ -18,6 +18,9 @@ Skills run on your computer with whatever model you've picked in the app. Nothin
 | [decision-log](skills/decision-log/SKILL.md) | Adds each meeting's decisions to a running log | After meetings |
 | [sales-call-notes](skills/sales-call-notes/SKILL.md) | Pain points, decision maker, budget, timeline, objections and next step | After sales calls |
 | [lecture-study-guide](skills/lecture-study-guide/SKILL.md) | Concepts, definitions, examples and practice questions from a lecture | Manually |
+| [follow-up-email](skills/follow-up-email/SKILL.md) | A follow-up email to the people invited: thanks, what was decided, who does what by when, and next steps | After meetings |
+| [interview-scorecard](skills/interview-scorecard/SKILL.md) | A scorecard for an interview you ran: a rating per area with evidence, strengths, concerns and a suggested recommendation | After interviews |
+| [coach-me](skills/coach-me/SKILL.md) | Honest feedback on how you came across: talk time, listening, questions, clarity, with real moments and what to try next | Manually |
 | [action-items-to-linear](skills/action-items-to-linear/SKILL.md) | Creates a Linear issue for each action item in a meeting (needs the Linear connection) | After meetings |
 
 ## Connections
